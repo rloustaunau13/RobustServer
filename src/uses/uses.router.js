@@ -1,27 +1,12 @@
-const router = require("express").Router();
-const controller = require("./url.controller");
-
-
-
-
+const router = require("express").Router({ mergeParams: true });
+const controller = require("./uses.controller");
 
 const methodNotAllowed = require("../errors/methodNotAllowed");
 
-const usesRouter = require("../uses/uses.router");
 
+router.route("/").get(controller.list).all(methodNotAllowed);
 
-
-router.use("/:urlId/uses", controller.urlExists,usesRouter);
-
-
-router.route("/:urlId").get(controller.read).put(controller.update).all(methodNotAllowed);
-
-
-
-router.route("/").post(controller.create).get(controller.list).all(methodNotAllowed);
-
-
-
+router.route("/:useId").get(controller.read).delete(controller.delete).all(methodNotAllowed);
 
 
 
